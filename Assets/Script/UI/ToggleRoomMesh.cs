@@ -6,21 +6,21 @@ using UnityEngine;
 
 public class ToggleRoomMesh : MonoBehaviour
 {
-    public IMixedRealitySpatialAwarenessSystem spatialAwarenessSystem;
+    public IMixedRealitySpatialAwarenessMeshObserver observer;
     public bool spatialMeshEnabled = false;
 
     void Start()
     {
         // 获取Spatial Awareness系统
-        spatialAwarenessSystem = CoreServices.SpatialAwarenessSystem;
+        observer = CoreServices.GetSpatialAwarenessSystemDataProvider<IMixedRealitySpatialAwarenessMeshObserver>();
 
-        if (spatialAwarenessSystem == null)
+        if (observer == null)
         {
             Debug.LogError("Spatial Awareness System is not available.");
         }
         else
         {
-            spatialAwarenessSystem.SuspendObservers();
+            observer.DisplayOption = SpatialAwarenessMeshDisplayOptions.Occlusion;
             spatialMeshEnabled = false;
         }
     }
@@ -28,19 +28,16 @@ public class ToggleRoomMesh : MonoBehaviour
     // 当按钮被按下时调用
     public void OnButtonPress()
     {
-        if (spatialAwarenessSystem != null)
+        if (observer != null)
         {
             if (spatialMeshEnabled)
             {
-                // 关闭环境网格的显示
-                spatialAwarenessSystem.ClearObservations();
-                spatialAwarenessSystem.SuspendObservers();
+                observer.DisplayOption = SpatialAwarenessMeshDisplayOptions.Occlusion;
                 spatialMeshEnabled = false;
             }
             else
             {
-                // 启用环境网格的显示
-                spatialAwarenessSystem.ResumeObservers();
+                observer.DisplayOption = SpatialAwarenessMeshDisplayOptions.Visible;
                 spatialMeshEnabled = true;
             }
         }
