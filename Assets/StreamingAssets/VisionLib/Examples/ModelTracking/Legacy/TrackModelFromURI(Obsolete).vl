@@ -1,0 +1,18 @@
+{
+    "$schema": "https://docs.visionlib.com/v3.1.2/vl.schema.json",
+    "type": "VisionLibTrackerConfig",
+    "version": 1,
+    "tracker": {
+        "type": "modelTracker",
+        "version": 1,
+        "parameters": {
+            "modelURI": "project-dir:VLMiniCar.obj",
+            "useColor": true,
+            "metric": "m",
+            "showLineModel": true,
+            "keyFrameDistance": 5,
+            "laplaceThreshold": 1,
+            "normalThreshold": 0.3
+        }
+    }
+}

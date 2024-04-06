@@ -1,0 +1,13 @@
+{
+    "$schema": "https://docs.visionlib.com/v3.1.2/vl.schema.json",
+    "type": "VisionLibTrackerConfig",
+    "version": 1,
+    "tracker": {
+        "type": "posterTracker",
+        "version": 1,
+        "parameters": {
+            "imageURI": "project-dir:LeavesPoster.png",
+            "realWidth": 0.269 // Width of the reference image
+        }
+    }
+}
