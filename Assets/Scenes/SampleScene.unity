@@ -1887,9 +1887,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 1693172568}
+        m_TargetAssemblyTypeName: PlaceExplorer, Assembly-CSharp
+        m_MethodName: DeployObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2587,9 +2587,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 195322728}
-        m_TargetAssemblyTypeName: ToggleRoomMesh, Assembly-CSharp
-        m_MethodName: OnButtonPress
+      - m_Target: {fileID: 1693172568}
+        m_TargetAssemblyTypeName: PlaceExplorer, Assembly-CSharp
+        m_MethodName: ClearObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4359,33 +4359,36 @@ MonoBehaviour:
   states: {fileID: 11400000, guid: e51893c8eb7938e4ba43985af43c0f72, type: 2}
   InputActionId: 0
   isGlobal: 0
-  Dimensions: 1
+  Dimensions: 2
   dimensionIndex: 0
   startDimensionIndex: 0
-  CanSelect: 0
-  CanDeselect: 0
+  CanSelect: 1
+  CanDeselect: 1
   voiceCommand: Select
   voiceRequiresFocus: 1
   profiles:
   - Target: {fileID: 0}
     Themes:
     - {fileID: 11400000, guid: 0c4c73f326f602744bdcfff481fd6f20, type: 2}
+    - {fileID: 11400000, guid: 0c4c73f326f602744bdcfff481fd6f20, type: 2}
   - Target: {fileID: 993964064}
     Themes:
+    - {fileID: 11400000, guid: 8f8cfb3041153fa45bccb6d664a563ec, type: 2}
     - {fileID: 11400000, guid: 8f8cfb3041153fa45bccb6d664a563ec, type: 2}
   - Target: {fileID: 956773931}
     Themes:
     - {fileID: 11400000, guid: 087b16002c2b0b445baa3ed3beae44a9, type: 2}
+    - {fileID: 11400000, guid: 087b16002c2b0b445baa3ed3beae44a9, type: 2}
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
-        m_Mode: 1
+      - m_Target: {fileID: 1693172568}
+        m_TargetAssemblyTypeName: PlaceExplorer, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 317896245}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5976,8 +5979,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415750604}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.008}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.000000011175871, y: 0.000000007450581, z: 0.007999986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6184,33 +6187,36 @@ MonoBehaviour:
   states: {fileID: 11400000, guid: e51893c8eb7938e4ba43985af43c0f72, type: 2}
   InputActionId: 0
   isGlobal: 0
-  Dimensions: 1
+  Dimensions: 2
   dimensionIndex: 0
   startDimensionIndex: 0
-  CanSelect: 0
-  CanDeselect: 0
+  CanSelect: 1
+  CanDeselect: 1
   voiceCommand: Select
   voiceRequiresFocus: 1
   profiles:
   - Target: {fileID: 0}
     Themes:
     - {fileID: 11400000, guid: 0c4c73f326f602744bdcfff481fd6f20, type: 2}
+    - {fileID: 11400000, guid: 0c4c73f326f602744bdcfff481fd6f20, type: 2}
   - Target: {fileID: 1518746321}
     Themes:
+    - {fileID: 11400000, guid: 8f8cfb3041153fa45bccb6d664a563ec, type: 2}
     - {fileID: 11400000, guid: 8f8cfb3041153fa45bccb6d664a563ec, type: 2}
   - Target: {fileID: 1149321069}
     Themes:
     - {fileID: 11400000, guid: 087b16002c2b0b445baa3ed3beae44a9, type: 2}
+    - {fileID: 11400000, guid: 087b16002c2b0b445baa3ed3beae44a9, type: 2}
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
-        m_Mode: 1
+      - m_Target: {fileID: 1693172568}
+        m_TargetAssemblyTypeName: PlaceExplorer, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 426005480}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7134,9 +7140,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507539218}
-  m_LocalRotation: {x: -0.70710653, y: 0, z: 0, w: -0.70710707}
+  m_LocalRotation: {x: -0.7071065, y: -0, z: -0, w: -0.707107}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 608917756}
@@ -8503,6 +8509,7 @@ Transform:
   m_Children:
   - {fileID: 963194228}
   - {fileID: 1648845060}
+  - {fileID: 1718244464}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8530,7 +8537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608917755}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.000000011175871, y: 0.000000022351742, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8565,8 +8572,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610881820}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.008}
-  m_LocalScale: {x: 0.032, y: 0.032, z: 0.016}
+  m_LocalPosition: {x: -0.000000011175871, y: 0.000000022351742, z: -0.007999993}
+  m_LocalScale: {x: 0.032, y: 0.032000005, z: 0.016000004}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 43604459}
@@ -11736,33 +11743,36 @@ MonoBehaviour:
   states: {fileID: 11400000, guid: e51893c8eb7938e4ba43985af43c0f72, type: 2}
   InputActionId: 0
   isGlobal: 0
-  Dimensions: 1
+  Dimensions: 2
   dimensionIndex: 0
   startDimensionIndex: 0
-  CanSelect: 0
-  CanDeselect: 0
+  CanSelect: 1
+  CanDeselect: 1
   voiceCommand: Select
   voiceRequiresFocus: 1
   profiles:
   - Target: {fileID: 0}
     Themes:
     - {fileID: 11400000, guid: 0c4c73f326f602744bdcfff481fd6f20, type: 2}
+    - {fileID: 11400000, guid: 0c4c73f326f602744bdcfff481fd6f20, type: 2}
   - Target: {fileID: 610881820}
     Themes:
+    - {fileID: 11400000, guid: 8f8cfb3041153fa45bccb6d664a563ec, type: 2}
     - {fileID: 11400000, guid: 8f8cfb3041153fa45bccb6d664a563ec, type: 2}
   - Target: {fileID: 1047588675}
     Themes:
     - {fileID: 11400000, guid: 087b16002c2b0b445baa3ed3beae44a9, type: 2}
+    - {fileID: 11400000, guid: 087b16002c2b0b445baa3ed3beae44a9, type: 2}
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
-        m_Mode: 1
+      - m_Target: {fileID: 1693172568}
+        m_TargetAssemblyTypeName: PlaceExplorer, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 807787928}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12083,8 +12093,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824242186}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.000000011175871, y: 0.000000022351742, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13153,7 +13163,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -14830,7 +14840,7 @@ MonoBehaviour:
   - Name: Button2
     Offset: {x: 0, y: 0}
     Radius: 0
-    Transform: {fileID: 807787929}
+    Transform: {fileID: 0}
     Colliders: []
   - Name: Button3
     Offset: {x: 0, y: 0}
@@ -15505,7 +15515,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321460032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 0, z: -0.01}
+  m_LocalPosition: {x: -0.019999994, y: 0.0000000143051135, z: -0.010000011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15711,9 +15721,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1321460034}
-        m_TargetAssemblyTypeName: ToggleRoomMesh, Assembly-CSharp
-        m_MethodName: OnButtonPress
+      - m_Target: {fileID: 1693172568}
+        m_TargetAssemblyTypeName: PlaceExplorer, Assembly-CSharp
+        m_MethodName: ToggleActive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15739,14 +15749,14 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    ClassName: InteractableOnFocusReceiver
-    AssemblyQualifiedName: Microsoft.MixedReality.Toolkit.UI.InteractableOnFocusReceiver,
-      Microsoft.MixedReality.Toolkit.SDK
+    ClassName: InteractableAudioReceiver
+    AssemblyQualifiedName: Microsoft.MixedReality.Toolkit.UI.InteractableAudioReceiver,
+      Microsoft.MixedReality.Toolkit.SDK, Version=2.8.3.0, Culture=neutral, PublicKeyToken=null
     Settings:
-    - Type: 18
-      Label: On Focus Off
-      Name: OnFocusOff
-      Tooltip: Focus has left the object
+    - Type: 17
+      Label: Audio Clip
+      Name: AudioClip
+      Tooltip: Assign an audioclip to play on click
       IntValue: 0
       StringValue: 
       FloatValue: 0
@@ -15770,19 +15780,7 @@ MonoBehaviour:
       QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
       EventValue:
         m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 1321460040}
-            m_TargetAssemblyTypeName: 
-            m_MethodName: AnimateOutHighlightPlate
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+          m_Calls: []
       Options: []
   - Event:
       m_PersistentCalls:
@@ -18218,6 +18216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1693172567}
+  - component: {fileID: 1693172568}
   m_Layer: 0
   m_Name: Explorer
   m_TagString: Untagged
@@ -18232,8 +18231,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693172566}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0177, y: 0.0823, z: -0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.017699968, y: 0.08230002, z: -0.000000003576279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18242,6 +18241,21 @@ Transform:
   m_Father: {fileID: 936113383}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1693172568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693172566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a17284bc2a16247aed038c9082ec99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  SelectedButton: {fileID: 0}
+  field: {fileID: 1718244464}
 --- !u!1 &1695316393
 GameObject:
   m_ObjectHideFlags: 0
@@ -18422,6 +18436,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700368087}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1718244463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1718244464}
+  m_Layer: 0
+  m_Name: PlaceField
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1718244464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718244463}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 600980682}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1720124316
 GameObject:
   m_ObjectHideFlags: 0
