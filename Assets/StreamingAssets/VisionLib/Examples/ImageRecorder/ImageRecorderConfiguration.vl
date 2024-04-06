@@ -1,0 +1,13 @@
+{
+    "$schema": "https://docs.visionlib.com/v3.1.2/vl.schema.json",
+    "type": "VisionLibTrackerConfig",
+    "version": 1,
+    "tracker": {
+        "type": "imageRecorder",
+        "version": 1,
+        "parameters": {
+            "recordURIPrefix": "local-storage-dir:/VisionLib/records/record/image_",
+            "recordImageType": "jpg"
+        }
+    }
+}
