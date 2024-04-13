@@ -24,6 +24,7 @@ namespace NN
             Profiler.BeginSample("YOLO.Run");
             var outputs = ExecuteModel(image);
             var results = Postprocess(outputs);
+            //var results = new List<ResultBox>();
             Profiler.EndSample();
             return results;
         }
@@ -43,6 +44,7 @@ namespace NN
             nn.worker.FlushSchedule(blocking: true);
             Profiler.EndSample();
         }
+
 
         private IEnumerable<Tensor> PeekOutputs()
         {

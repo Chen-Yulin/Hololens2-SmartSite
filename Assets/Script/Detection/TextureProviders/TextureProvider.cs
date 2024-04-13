@@ -30,7 +30,7 @@ namespace Assets.Scripts.TextureProviders
 
         public virtual Texture2D GetTexture()
         {
-            return TextureTools.ResizeAndCropToCenter(InputTexture, ref ResultTexture, ResultTexture.width, ResultTexture.height);
+            return TextureTools.ResizeAndCropToCenter(InputTexture, ref ResultTexture, 640, 640);
         }
 
         public abstract TextureProviderType.ProviderType TypeEnum();
