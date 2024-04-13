@@ -3435,7 +3435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &245231320
 Transform:
   m_ObjectHideFlags: 0
@@ -11091,7 +11091,7 @@ GameObject:
   - component: {fileID: 800842345}
   - component: {fileID: 800842344}
   m_Layer: 0
-  m_Name: RoomMeshToggle
+  m_Name: DetectionToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11298,9 +11298,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ToggleRoomMesh, Assembly-CSharp
-        m_MethodName: OnButtonPress
+      - m_Target: {fileID: 782628376}
+        m_TargetAssemblyTypeName: Detector, Assembly-CSharp
+        m_MethodName: ToggleDetection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12980,7 +12980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &936113383
 Transform:
   m_ObjectHideFlags: 0

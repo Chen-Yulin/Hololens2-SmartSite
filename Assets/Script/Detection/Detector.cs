@@ -43,7 +43,14 @@ public class Detector : MonoBehaviour
     YOLOv8 yolo;
 
     float time = 0;
-    float cycle = 0.5f;
+    float cycle = 2f;
+
+    bool detectionOn = false;
+
+    public void ToggleDetection()
+    {
+        detectionOn = !detectionOn;
+    }
 
     private void OnEnable()
     {
@@ -56,19 +63,25 @@ public class Detector : MonoBehaviour
 
     private void Update()
     {
-        time += Time.deltaTime;
-        if (time > cycle)
+        if (detectionOn)
         {
-            time = 0;
+            time += Time.deltaTime;
+            if (time > cycle)
+            {
+                time = 0;
 
-            YOLOv8OutputReader.DiscardThreshold = MinBoxConfidence;
-            Texture2D texture = GetNextTexture();
+                YOLOv8OutputReader.DiscardThreshold = MinBoxConfidence;
+                Texture2D texture = GetNextTexture();
 
-            var boxes = yolo.Run(texture);
-            DrawResults(boxes, texture);
-            material_t.mainTexture = texture;
+                var boxes = yolo.Run(texture);
+                DrawResults(boxes, texture);
+                material_t.mainTexture = texture;
+            }
         }
-        
+        else
+        {
+            time = cycle / 2f;
+        }
     }
 
     protected TextureProvider GetTextureProvider(Model model)
