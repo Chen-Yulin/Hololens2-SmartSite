@@ -43,7 +43,7 @@ public class Detector : MonoBehaviour
     YOLOv8 yolo;
 
     float time = 0;
-    float cycle = 2f;
+    public float cycle = 0.2f;
 
     bool detectionOn = false;
 

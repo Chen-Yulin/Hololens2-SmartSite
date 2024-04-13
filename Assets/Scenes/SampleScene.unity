@@ -10962,13 +10962,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad934041a3d88c45b687ed811756753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModelFile: {fileID: 5022602860645237092, guid: 191bc89fbc388ae4c9f0b290bd0a7776, type: 3}
+  ModelFile: {fileID: 5022602860645237092, guid: 28f8589cc7fa45140a5d20478601f140, type: 3}
   material_t: {fileID: 2100000, guid: d4c3396def303a84d81ff6a10a617c11, type: 2}
-  MinBoxConfidence: 0.3
+  MinBoxConfidence: 0.2
   textureProviderType: 0
   textureProvider:
     rid: 7844097659052228608
   holo: 1
+  cycle: 0.5
   references:
     version: 2
     RefIds:
