@@ -1,0 +1,24 @@
+{
+    "$schema": "https://docs.visionlib.com/v3.1.2/vl.schema.json",
+    "type": "VisionLibTrackerConfig",
+    "version": 1,
+    "tracker": {
+        "type": "multiModelTracker",
+        "version": 1,
+        "parameters": {
+            "useColor": true,
+            "metric": "m",
+            "extendibleTracking": true,
+            "simulateExternalSLAM": true
+        }
+    },
+    "input": {
+        "useImageSource": "inject0",
+        "imageSources": [
+            {
+                "name": "inject0",
+                "type": "inject"
+            }
+        ]
+    }
+}

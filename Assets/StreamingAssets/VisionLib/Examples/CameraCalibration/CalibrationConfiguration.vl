@@ -1,0 +1,10 @@
+{
+    "$schema": "https://docs.visionlib.com/v3.1.2/vl.schema.json",
+    "type": "VisionLibTrackerConfig",
+    "version": 1,
+    "tracker": {
+        "type": "cameraCalibration",
+        "version": 1,
+        "parameters": {}
+    }
+}
