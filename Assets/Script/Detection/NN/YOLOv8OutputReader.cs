@@ -12,8 +12,8 @@ namespace NN
         public static float DiscardThreshold = 0.1f;
         protected const int ClassesNum = 80;
         const int BoxesPerCell = 525;
-        const int InputWidth = 240;
-        const int InputHeight = 240;
+        const int InputWidth = 160;
+        const int InputHeight = 160;
 
         public IEnumerable<ResultBox> ReadOutput(Tensor output)
         {
