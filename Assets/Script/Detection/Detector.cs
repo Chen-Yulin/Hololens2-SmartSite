@@ -42,20 +42,32 @@ public class Detector : MonoBehaviour
 
     YOLOv8 yolo;
 
-    float time = 0;
-    public float cycle = 0.2f;
 
-    bool detectionOn = false;
+    private bool detectionOn = false;
+
+    Texture2D CapturedTexture;
+    Texture2D DisplayTexture;
+    List<ResultBox> boxes = new List<ResultBox>();
 
     public void ToggleDetection()
     {
         detectionOn = !detectionOn;
+        if (detectionOn)
+        {
+            yolo.TurnOnYolo();
+        }
+        else
+        {
+            yolo.TurnOffYolo();
+        }
     }
 
     private void OnEnable()
     {
         nn = new NNHandler(ModelFile);
-        yolo = new YOLOv8Segmentation(nn);
+        //yolo = new YOLOv8Segmentation(nn);
+        yolo = gameObject.AddComponent<YOLOv8>();
+        yolo.InitYOLOv8(nn);
 
         textureProvider = GetTextureProvider(nn.model);
         textureProvider.Start();
@@ -65,22 +77,28 @@ public class Detector : MonoBehaviour
     {
         if (detectionOn)
         {
-            time += Time.deltaTime;
-            if (time > cycle)
+            if (yolo.ResAvailable) // all data has been updated
             {
-                time = 0;
+                Debug.Log("update result "+yolo.Results.Count);
+                yolo.ResAvailable = false;
+                boxes = yolo.Results;
+
+                DisplayTexture = new Texture2D(CapturedTexture.width, CapturedTexture.height, TextureFormat.RGB24, false);
+                Graphics.CopyTexture(CapturedTexture, DisplayTexture);
+                DrawResults(boxes, DisplayTexture);
+                material_t.mainTexture = DisplayTexture;
 
                 YOLOv8OutputReader.DiscardThreshold = MinBoxConfidence;
-                Texture2D texture = GetNextTexture();
-
-                var boxes = yolo.Run(texture);
-                DrawResults(boxes, texture);
-                material_t.mainTexture = texture;
+                CapturedTexture = GetNextTexture();
+                yolo.SetSource(CapturedTexture);
             }
-        }
-        else
-        {
-            time = cycle / 2f;
+            else if (yolo.StartOfDetection)
+            {
+                yolo.StartOfDetection = false;
+                YOLOv8OutputReader.DiscardThreshold = MinBoxConfidence;
+                CapturedTexture = GetNextTexture();
+                yolo.SetSource(CapturedTexture);
+            }
         }
     }
 
