@@ -117,7 +117,7 @@ namespace NN
                         input = new Tensor(sourceImg);
                         // ExecuteBlocking(input);
                         workerbusy = true;
-                        StartCoroutine(ExecuteUnblocking(input));
+                        StartCoroutine(ExecutePartialy(input));
                     }
                     return null;
                 }
@@ -128,7 +128,7 @@ namespace NN
             }
         }
 
-        IEnumerator ExecuteUnblocking(Tensor preprocessed)
+        IEnumerator ExecutePartialy(Tensor preprocessed)
         {
             var it = nn.worker.StartManualSchedule(preprocessed);
             workerbusy = true;
