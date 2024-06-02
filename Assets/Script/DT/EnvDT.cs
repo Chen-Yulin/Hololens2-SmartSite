@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnvDT : MonoBehaviour
 {
-    public bool Initialized = false;
+    bool Initialized = false;
     // Start is called before the first frame update
     void Start()
     {
