@@ -41,8 +41,8 @@ public class PlaceExplorer : MonoBehaviour
             obj.SetActive(true);
             obj.transform.parent = field;
             obj.AddComponent<ObjectManipulator>();
-            obj.transform.localScale = Vector3.one * 0.2f;
-            obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.4f;
+            obj.transform.localScale *= 20f;
+            obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.8f;
         }
     }
 

@@ -11,6 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.UI;
+using UnityEngine.XR.ARSubsystems;
 
 public class Detector : MonoBehaviour
 {
@@ -152,7 +153,9 @@ public class Detector : MonoBehaviour
         Color boxColor = colorArray[box.bestClassIndex % colorArray.Length];
         int boxWidth = (int)(box.score / MinBoxConfidence);
         TextureTools.DrawRectOutline(img, box.rect, boxColor, boxWidth, rectIsNormalized: false, revertY: true);
+
     }
+
 
     private void OnValidate()
     {

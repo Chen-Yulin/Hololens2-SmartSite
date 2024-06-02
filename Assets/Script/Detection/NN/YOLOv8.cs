@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity.Barracuda;
@@ -36,6 +37,10 @@ namespace NN
                 }
             }
         }
+
+
+        [SerializeField]
+        public List<string> className  = new List<string>();
 
         Tensor input;
 
@@ -79,6 +84,7 @@ namespace NN
         {
             this.nn = nn;
             outputReader = new();
+            className = readClassNames("StreamingAssets/coco.names");
         }
 
         public void Run()
@@ -111,7 +117,7 @@ namespace NN
                         input = new Tensor(sourceImg);
                         // ExecuteBlocking(input);
                         workerbusy = true;
-                        StartCoroutine(ExecuteUnblocking(input));
+                        StartCoroutine(ExecutePartialy(input));
                     }
                     return null;
                 }
@@ -122,7 +128,7 @@ namespace NN
             }
         }
 
-        IEnumerator ExecuteUnblocking(Tensor preprocessed)
+        IEnumerator ExecutePartialy(Tensor preprocessed)
         {
             var it = nn.worker.StartManualSchedule(preprocessed);
             workerbusy = true;
@@ -164,6 +170,40 @@ namespace NN
             boxes = DuplicatesSupressor.RemoveDuplicats(boxes);
             Profiler.EndSample();
             return boxes;
+        }
+
+        protected virtual List<string> readClassNames(string filename)
+        {
+
+            // 转换为绝对路径
+            string absoluteFilePath = Path.Combine(Application.dataPath, filename);
+
+
+            List<string> classNames = new List<string>();
+
+            System.IO.StreamReader cReader = null;
+            try
+            {
+                cReader = new System.IO.StreamReader(absoluteFilePath, System.Text.Encoding.Default);
+
+                while (cReader.Peek() >= 0)
+                {
+                    string name = cReader.ReadLine();
+                    classNames.Add(name);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError(ex.Message);
+                return null;
+            }
+            finally
+            {
+                if (cReader != null)
+                    cReader.Close();
+            }
+
+            return classNames;
         }
     }
 }
