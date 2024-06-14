@@ -53,7 +53,7 @@ public class ObjectSpaceManager : MonoBehaviour
         {
             ObjectFrame frame = item.Value;
 
-            if (Vector3.Distance(frame.transform.position, pos) < 0.05f)
+            if (Vector3.Distance(frame.transform.position, pos) < 0.05f && frame.type == ObjectFrame.Type.Detect)
             {
                 pre_found = true;
                 item.Value.UpdateFrame(cat, pos, rot, size);
@@ -74,6 +74,11 @@ public class ObjectSpaceManager : MonoBehaviour
         Vector3 rot = new Vector3(transform[3], transform[4], transform[5]);
         Vector3 size = new Vector3(transform[6], transform[7], transform[8]);
         EnqueueUpdateObject(cat, pos, rot, size);
+    }
+
+    public void OnFrameManipulate()
+    {
+        Debug.Log("Frame Manipulate");
     }
 
     void Start()
