@@ -50,6 +50,17 @@ public class ObjectFrame : MonoBehaviour
         Frame.transform.localScale = scale;
     }
 
+    public void CancelAim()
+    {
+        Debug.Log("Cancel Aim");
+        if (type == Type.Aim)
+        {
+            source.transform.Find("Frame").gameObject.GetComponent<ObjectManipulator>().ManipulationType = Microsoft.MixedReality.Toolkit.Utilities.ManipulationHandFlags.OneHanded;
+            source.dist = null;
+            Destroy(gameObject);
+        }
+    }
+
     public void SwitchToAim()
     {
         if (type == Type.Aim)

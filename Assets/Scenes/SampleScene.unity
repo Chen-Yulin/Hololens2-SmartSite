@@ -7197,6 +7197,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 637172884}
+        m_TargetAssemblyTypeName: ObjectFrame, Assembly-CSharp
+        m_MethodName: CancelAim
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Events:
   - Event:
       m_PersistentCalls:
@@ -11286,6 +11298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 637172883}
+  - component: {fileID: 637172884}
   m_Layer: 0
   m_Name: FramePrefab
   m_TagString: Untagged
@@ -11310,6 +11323,27 @@ Transform:
   m_Father: {fileID: 91002363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637172884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637172882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d16b7848e01184c9f24dbf1b5cb3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  life: 50
+  Category: 
+  manager: {fileID: 91002364}
+  UI: {fileID: 950025714}
+  Frame: {fileID: 0}
+  aimMat: {fileID: 2100000, guid: bb13f8af80ecd1047b0bb7ddab898865, type: 2}
+  Line: {fileID: 123572879}
+  objectMat: {fileID: 2100000, guid: c7d413f358d5beb489909afd879d05de, type: 2}
 --- !u!1 &647758904
 GameObject:
   m_ObjectHideFlags: 0
@@ -15478,8 +15512,9 @@ GameObject:
   m_Component:
   - component: {fileID: 950025715}
   - component: {fileID: 950025716}
+  - component: {fileID: 950025717}
   m_Layer: 0
-  m_Name: UIPrefab
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15515,6 +15550,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+--- !u!114 &950025717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950025714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fe0fa4f670a52448415f5e3e6b39a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3762444237361700491}
 --- !u!1 &954681883
 GameObject:
   m_ObjectHideFlags: 0
@@ -27817,7 +27865,6 @@ GameObject:
   - component: {fileID: 3762444237361700496}
   - component: {fileID: 3762444237361700495}
   - component: {fileID: 3762444237361700494}
-  - component: {fileID: 3762444237361700493}
   - component: {fileID: 3762444237361700498}
   - component: {fileID: 3762444237361700497}
   m_Layer: 0
@@ -27827,26 +27874,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3762444237361700493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3762444237361700492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01d16b7848e01184c9f24dbf1b5cb3e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  life: 50
-  Category: 
-  manager: {fileID: 91002364}
-  UI: {fileID: 0}
-  aimMat: {fileID: 2100000, guid: bb13f8af80ecd1047b0bb7ddab898865, type: 2}
-  Line: {fileID: 123572879}
-  objectMat: {fileID: 2100000, guid: c7d413f358d5beb489909afd879d05de, type: 2}
 --- !u!65 &3762444237361700494
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27944,7 +27971,7 @@ MonoBehaviour:
   onManipulationStarted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3762444237361700493}
+      - m_Target: {fileID: 637172884}
         m_TargetAssemblyTypeName: ObjectFrame, Assembly-CSharp
         m_MethodName: SwitchToAim
         m_Mode: 1
