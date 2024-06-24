@@ -6,9 +6,9 @@ public class IKController : MonoBehaviour {
     public ArmJoint[] Joints;
     public float[] Angles;
 
-    private const float SamplingDistance = 1f;
+    private const float SamplingDistance = 0.3f;
     private const float LearningRate = 200f;
-    private const float DistanceThreshold = 0.001f;
+    private const float DistanceThreshold = 0.002f;
 
 
     private void Start() {
