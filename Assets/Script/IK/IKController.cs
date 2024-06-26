@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using WW2NavalAssembly;
 
 // ReSharper disable once InconsistentNaming
 public class IKController : MonoBehaviour {
@@ -6,9 +8,13 @@ public class IKController : MonoBehaviour {
     public ArmJoint[] Joints;
     public float[] Angles;
 
-    private const float SamplingDistance = 0.3f;
-    private const float LearningRate = 200f;
+    private const float SamplingDistance = 0.1f;
+    private const float LearningRate = 100f;
     private const float DistanceThreshold = 0.002f;
+
+    public bool IK = false;
+
+    public int maxStep = 200;
 
 
     private void Start() {
@@ -29,7 +35,35 @@ public class IKController : MonoBehaviour {
     }
 
     private void Update() {
-        InverseKinematics(_targetTransform.position, Angles);
+        if (IK)
+        {
+            IK = false;
+            InverseKinematics(GetPositionForJ4(_targetTransform.position));
+        }
+    }
+
+
+    public Vector3 GetPositionForJ4(Vector3 pos)
+    {
+        Vector3 forward = pos - Joints[0].transform.position;
+        forward.y = 0;
+        float angle = Mathf.Acos(0.1148f / forward.magnitude);
+        Vector3 left = Quaternion.AngleAxis(-angle * 180f/Mathf.PI, Vector3.up) * forward;
+        left = left.normalized * 0.1148f;
+        Vector3 offset = forward - left;
+        offset = offset.normalized * 0.1175f;
+        return pos + Vector3.up * 0.2446f - offset;
+    }
+
+    public void InverseKinematics(Vector3 pos)
+    {
+        int step = 0;
+        while(step < maxStep && DistanceFromTarget(pos, Angles) >= DistanceThreshold)
+        {
+            step++;
+            InverseKinematicsOneStep(pos, Angles);
+        }
+        Debug.Log(step);
     }
 
     public Vector3 ForwardKinematics(float[] angles) {
@@ -69,7 +103,7 @@ public class IKController : MonoBehaviour {
         return gradient;
     }
 
-    public void InverseKinematics(Vector3 target, float[] angles) {
+    public void InverseKinematicsOneStep(Vector3 target, float[] angles) {
         if (DistanceFromTarget(target, angles) < DistanceThreshold)
             return;
 
