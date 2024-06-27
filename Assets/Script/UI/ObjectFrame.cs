@@ -28,10 +28,25 @@ public class ObjectFrame : MonoBehaviour
     ObjectFrame source;
     [SerializeField] Material aimMat;
     [SerializeField] LineRenderer Line;
+    [SerializeField] TaskManager taskManager;
 
     // for detect type;
     ObjectFrame dist;
     [SerializeField] Material objectMat;
+
+    public void SendTask()
+    {
+        if (taskManager)
+        {
+            ArmTask t = new ArmTask();
+            t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position);
+            taskManager.GetTask(t, gameObject);
+        }
+        else
+        {
+            Debug.Log("TaskManager not found.");
+        }
+    }
 
     public void InitFrame(Type t, Vector3 pos, Vector3 rot, Vector3 scale)
     {
@@ -53,6 +68,9 @@ public class ObjectFrame : MonoBehaviour
     public void CancelAim()
     {
         Debug.Log("Cancel Aim");
+
+
+
         if (type == Type.Aim)
         {
             source.transform.Find("Frame").gameObject.GetComponent<ObjectManipulator>().ManipulationType = Microsoft.MixedReality.Toolkit.Utilities.ManipulationHandFlags.OneHanded;

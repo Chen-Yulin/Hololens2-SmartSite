@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class KeyPoint
 {
     public Vector3 pos = Vector3.zero;
@@ -14,7 +15,7 @@ public class KeyPoint
         this.wait = wait;
     }
 }
-
+[System.Serializable]
 public class Route
 {
     public List<KeyPoint> routes = new List<KeyPoint>();
@@ -26,8 +27,10 @@ public class Route
         }
         for (int i = 1; i < turningPoints.Count; i++)
         {
+            
             KeyPoint start = turningPoints[i-1];
             KeyPoint end = turningPoints[i];
+            Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
             float dist = (start.pos - end.pos).magnitude;
             int sigment = (int)(dist * 20f);
             for (int j = 0; j <= sigment; j++)

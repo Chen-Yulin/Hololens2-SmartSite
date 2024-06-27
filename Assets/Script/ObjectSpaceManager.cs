@@ -63,8 +63,9 @@ public class ObjectSpaceManager : MonoBehaviour
         }
         if (!pre_found)
         {
-            CreateObject(id, cat, pos, rot, size);
             id++;
+            CreateObject(id, cat, pos, rot, size);
+            
         }
     }
 
