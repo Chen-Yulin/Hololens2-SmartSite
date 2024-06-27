@@ -16,6 +16,8 @@ public class IKController : MonoBehaviour {
 
     public int maxStep = 200;
 
+    public ArmDTController ArmDT; // for the initial state of arm (reset angle)
+
 
     private void Start() {
         float[] angles = new float[Joints.Length];
@@ -42,6 +44,15 @@ public class IKController : MonoBehaviour {
         }
     }
 
+    public void ResetAngle()
+    {
+        float[] angles = ArmDT.Rotate;
+        for (int i = 0; i < Angles.Length;i++)
+        {
+            Angles[i] = MathTool.DT_to_IK_angle(angles[i], i);
+        }
+    }
+
 
     public Vector3 GetPositionForJ4(Vector3 pos)
     {
@@ -55,7 +66,7 @@ public class IKController : MonoBehaviour {
         return pos + Vector3.up * 0.2446f - offset;
     }
 
-    public void InverseKinematics(Vector3 pos)
+    public bool InverseKinematics(Vector3 pos)
     {
         int step = 0;
         while(step < maxStep && DistanceFromTarget(pos, Angles) >= DistanceThreshold)
@@ -63,7 +74,7 @@ public class IKController : MonoBehaviour {
             step++;
             InverseKinematicsOneStep(pos, Angles);
         }
-        Debug.Log(step);
+        return step < 1000;
     }
 
     public Vector3 ForwardKinematics(float[] angles) {

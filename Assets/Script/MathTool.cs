@@ -82,5 +82,17 @@ namespace WW2NavalAssembly
             }
             return -1; // Element not found
         }
+
+        public static float DT_to_IK_angle(float angle, int index)
+        {
+            if (index == 1)
+            {
+                return -angle;
+            }
+            else
+            {
+                return angle;
+            }
+        }
     }
 }

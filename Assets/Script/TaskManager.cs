@@ -68,17 +68,27 @@ public class TaskManager : MonoBehaviour
         turningPoint.Add(new KeyPoint(task.move_start, true));
         turningPoint.Add(new KeyPoint(task.move_end, false));
         routeGenerator.SetRoute(turningPoint);
+        bool solveable = routeGenerator.CalculateSequence();
 
-        
-
-        yield return new WaitForSeconds(3);
+        if (!solveable)
+        {
+            Debug.Log("Unable to solve the arm action");
+        }
+        else
+        {
+            // execute action
+            routeGenerator.GenerateGhost();
+            yield return new WaitForSeconds(3);
+            // cancel aim box when finish
+            try
+            {
+                taskSouce.GetComponent<ObjectFrame>().CancelAim();
+            }
+            catch { }
+        }
         taskRoutine = null;
         task = new ArmTask();
-        try
-        {
-            taskSouce.GetComponent<ObjectFrame>().CancelAim();
-        }
-        catch { }
+        
         
         Debug.Log("Task Finished");
         yield break;
