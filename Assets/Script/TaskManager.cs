@@ -23,7 +23,7 @@ public class ArmTask
         move_end = end;
     }
 }
-public class TaskManager : MonoBehaviour
+public class TaskManager : MonoBehaviour // hold the coroutine of tasks
 {
     public ArmTask task = new ArmTask();
 
