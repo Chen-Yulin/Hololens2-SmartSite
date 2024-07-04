@@ -68,11 +68,101 @@ public class RouteGenerator : MonoBehaviour
     public Route route;
     public List<ArmAction> actionSequence = new List<ArmAction>();
 
+    public Transform GhostSpace;
+
     public GameObject GhostPrefab;
+
+    public Material transparentMat;
+    public Material hightlightMat;
+
+    [SerializeField]
+    uint currHighlight = 0;
+
+
+    
+    public uint CurrHighlight
+    {
+        get
+        {
+            return currHighlight;
+        }
+        set
+        {
+            if (currHighlight != value)
+            {
+                currHighlight = value;
+                if (!GhostSpace)
+                {
+                    return;
+                }
+                if (GhostSpace.childCount > 0)
+                {
+                    if (currHighlight == 0)
+                    {
+                        SetMat(GhostSpace.GetChild(GhostSpace.childCount - 1), transparentMat);
+                    }
+                    else
+                    {
+                        SetMat(GhostSpace.GetChild((int)(currHighlight - 1)), transparentMat);
+                    }
+                    SetMat(GhostSpace.GetChild((int)currHighlight), hightlightMat);
+                }
+            }
+        }
+    }
+
+    IEnumerator IncrementVis()
+    {
+        while (true)
+        {
+            //Debug.Log("Increment");
+            if (!GhostSpace)
+            {
+                CurrHighlight = 0;
+                yield return new WaitForSeconds(0.1f);
+            }
+            else
+            {
+                if (CurrHighlight < GhostSpace.childCount - 1)
+                {
+                    CurrHighlight++;
+                }
+                else
+                {
+                    CurrHighlight = 0;
+                }
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
+
+        public void SetMat(Transform target, Material mat)
+    {
+        foreach (Transform child in target)
+        {
+            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                Material[] newMaterials = new Material[meshRenderer.materials.Length];
+                for (int i = 0; i < newMaterials.Length; i++)
+                {
+                    newMaterials[i] = mat;
+                }
+                meshRenderer.materials = newMaterials;
+            }
+            SetMat(child, mat);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(IncrementVis());
+    }
+
+    private void OnDestroy()
+    {
+        StopCoroutine(IncrementVis());
     }
 
     public void SetRoute(List<KeyPoint> turningPoints)
@@ -109,7 +199,9 @@ public class RouteGenerator : MonoBehaviour
             Destroy(transform.Find("GhostSpace").gameObject);
         }
         catch { }
+        CurrHighlight = 0;
         GameObject space = new GameObject("GhostSpace");
+        GhostSpace = space.transform;
         space.transform.parent = transform;
         space.transform.localPosition = Vector3.zero;
         space.transform.localRotation = Quaternion.identity;

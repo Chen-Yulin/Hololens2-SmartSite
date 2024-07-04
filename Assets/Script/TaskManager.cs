@@ -23,17 +23,27 @@ public class ArmTask
         move_end = end;
     }
 }
-public class TaskManager : MonoBehaviour
+public class TaskManager : MonoBehaviour // hold the coroutine of tasks
 {
     public ArmTask task = new ArmTask();
 
     public Transform ArmEnd;
     public IKController IKSolver;
     public RouteGenerator routeGenerator;
+    public JakaController jaka;
+    
 
     Coroutine taskRoutine;
 
     GameObject taskSouce;
+
+    public bool jakaRunning = false;
+
+
+    public void JakaFinished()
+    {
+        jakaRunning = false;
+    }
 
     public void GetTask(ArmTask t, GameObject sender)
     {
@@ -56,7 +66,6 @@ public class TaskManager : MonoBehaviour
         {
             Debug.Log("Current task not finished.");
         }
-        
     }
 
     IEnumerator ExecuteMoveObject()
@@ -76,9 +85,16 @@ public class TaskManager : MonoBehaviour
         }
         else
         {
-            // execute action
+            // generate vis
             routeGenerator.GenerateGhost();
-            yield return new WaitForSeconds(3);
+
+            // execute action
+            
+            foreach (ArmAction action in routeGenerator.actionSequence)
+            {
+                jaka.SetJointRot(action.angles);
+                yield return new WaitForSeconds(0.3f);
+            }
             // cancel aim box when finish
             try
             {
@@ -88,8 +104,6 @@ public class TaskManager : MonoBehaviour
         }
         taskRoutine = null;
         task = new ArmTask();
-        
-        
         Debug.Log("Task Finished");
         yield break;
     }

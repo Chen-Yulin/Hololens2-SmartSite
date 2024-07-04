@@ -20,7 +20,7 @@ public class IKController : MonoBehaviour {
 
 
     private void Start() {
-        float[] angles = new float[Joints.Length];
+        float[] angles = new float[Joints.Length + 2];
         
         for (int i = 0; i < Joints.Length; i++) {
             if (Joints[i]._rotationAxis == 'x') {
@@ -74,6 +74,8 @@ public class IKController : MonoBehaviour {
             step++;
             InverseKinematicsOneStep(pos, Angles);
         }
+
+        Angles[3] = Angles[2]+Angles[1];
         return step < 1000;
     }
 
