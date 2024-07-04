@@ -31,6 +31,7 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
     public IKController IKSolver;
     public RouteGenerator routeGenerator;
     public JakaController jaka;
+    
 
     Coroutine taskRoutine;
 
@@ -88,18 +89,12 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
             routeGenerator.GenerateGhost();
 
             // execute action
-            /*
+            
             foreach (ArmAction action in routeGenerator.actionSequence)
             {
                 jaka.SetJointRot(action.angles);
-                jakaRunning = true;
-                while (jakaRunning)
-                {
-                    yield return new WaitForFixedUpdate();
-                }
-            }*/
-
-            yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(0.3f);
+            }
             // cancel aim box when finish
             try
             {

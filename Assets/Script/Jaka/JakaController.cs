@@ -6,6 +6,7 @@ using jkType;
 using UnityEngine.Events;
 using System;
 using UnityEngine.Serialization;
+using WW2NavalAssembly;
 
 public class JakaController : MonoBehaviour
 {
@@ -17,10 +18,22 @@ public class JakaController : MonoBehaviour
     [FormerlySerializedAs("Callback")]
     [SerializeField]
     JakaCallbackEvent callback_event = new JakaCallbackEvent();
+    public UdpSocket network;
 
     public void SetJointRot(float[] rot)
     {
+        if (rot.Length != 6)
+        {
+            throw new ArgumentException("数组长度不等于6");
+        }
+        string info = "{Target Joint}\n";
 
+        float[] real_rot = MathTool.DT_to_Real_angle(rot);
+        foreach (var r in real_rot)
+        {
+            info += $"{Math.Round(r, 2)}\n";
+        }
+        network.SendData(info);
     }
 
     // Start is called before the first frame update

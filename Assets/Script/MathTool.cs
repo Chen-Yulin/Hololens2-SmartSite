@@ -94,5 +94,29 @@ namespace WW2NavalAssembly
                 return angle;
             }
         }
+
+        public static float[] Real_to_DT_angle(float[] angles)
+        {
+            float[] res = new float[6];
+            res[0] = - angles[0];
+            res[1] = angles[1] - 90f;
+            res[2] = - (angles[2] + 90f);
+            res[3] = angles[3] - 90f;
+            res[4] = - (angles[4] - 90f);
+            res[5] = angles[5] - 90f;
+            return res;
+        }
+        public static float[] DT_to_Real_angle(float[] angles)
+        {
+            float[] res = new float[6];
+            res[0] = -angles[0];
+            res[1] = -angles[1] + 90f;
+            res[2] = -angles[2] - 90f;
+            res[3] = angles[3] + 90f;
+            res[4] = -angles[4] + 90f;
+            res[5] = angles[5] + 90f;
+            return res;
+        }
+
     }
 }

@@ -19,6 +19,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using WW2NavalAssembly;
 
 public class UdpSocket : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class UdpSocket : MonoBehaviour
     [SerializeField] int txPort = 8001; // port to send data to Python on
 
     public ObjectSpaceManager ObjectManager;
+    public ArmDTController ArmDT;
 
     int i = 0; // DELETE THIS: Added to show sending data from Unity to Python via UDP
 
@@ -104,6 +106,17 @@ public class UdpSocket : MonoBehaviour
                         transform[i] = float.Parse(lines[i + 2]);
                     }
                     ObjectManager.AsyUpdateObject(cat, transform);
+                }else if (lines[0] == "{Current Joint}")
+                {
+                    float[] angle = new float[6];
+                    for (int i = 0; i < 6; i++)
+                    {
+                        angle[i] = float.Parse(lines[i + 1]);
+                    }
+                    if (ArmDT)
+                    {
+                        ArmDT.UpdateRealAngle(MathTool.Real_to_DT_angle(angle));
+                    }
                 }
             }
             catch (Exception err)

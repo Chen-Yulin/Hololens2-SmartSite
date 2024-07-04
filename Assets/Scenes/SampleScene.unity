@@ -2574,7 +2574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &109097503
 Transform:
   m_ObjectHideFlags: 0
@@ -14575,7 +14575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &698205061
 Transform:
   m_ObjectHideFlags: 0
@@ -18548,7 +18548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &869600501
 Transform:
   m_ObjectHideFlags: 0
@@ -18799,7 +18799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &907877197
 Transform:
   m_ObjectHideFlags: 0
@@ -20150,7 +20150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1003494610
 Transform:
   m_ObjectHideFlags: 0
@@ -20349,7 +20349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1014946304
 Transform:
   m_ObjectHideFlags: 0
@@ -21958,7 +21958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1192191303
 Transform:
   m_ObjectHideFlags: 0
@@ -22367,7 +22367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1202905070
 Transform:
   m_ObjectHideFlags: 0
@@ -23125,7 +23125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1264746296
 Transform:
   m_ObjectHideFlags: 0
@@ -23470,6 +23470,7 @@ MonoBehaviour:
   rxPort: 8000
   txPort: 8001
   ObjectManager: {fileID: 91002364}
+  ArmDT: {fileID: 1023988670521322052}
 --- !u!1 &1279699982
 GameObject:
   m_ObjectHideFlags: 0
@@ -26135,9 +26136,11 @@ MonoBehaviour:
   route:
     keypoints: []
   actionSequence: []
+  GhostSpace: {fileID: 0}
   GhostPrefab: {fileID: 491110027}
   transparentMat: {fileID: 2100000, guid: e718c2b7571e6c54e93afa2d219d0332, type: 2}
   hightlightMat: {fileID: 2100000, guid: 074ac01d96eb3a6448f3399c78b07dbf, type: 2}
+  currHighlight: 0
 --- !u!1 &1465519243
 GameObject:
   m_ObjectHideFlags: 0
@@ -34040,7 +34043,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2088957225
 Transform:
   m_ObjectHideFlags: 0
@@ -35056,7 +35059,7 @@ MonoBehaviour:
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: 1}
   - {x: 1, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
   Rotate:
   - 0
@@ -35087,6 +35090,7 @@ MonoBehaviour:
   callback_event:
     m_PersistentCalls:
       m_Calls: []
+  network: {fileID: 1278946180}
 --- !u!4 &1088753675411568617
 Transform:
   m_ObjectHideFlags: 0

@@ -13,6 +13,11 @@ public class ArmDTController : MonoBehaviour
 
     // Start is called before the first frame update
 
+    public void UpdateRealAngle(float[] angles)
+    {
+        Rotate = angles;
+    }
+
     Transform RecursiveFindChild(Transform parent, string childName)
     {
         foreach (Transform child in parent)
