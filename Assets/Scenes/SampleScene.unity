@@ -23431,6 +23431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1278946179}
   - component: {fileID: 1278946180}
+  - component: {fileID: 1278946181}
   m_Layer: 0
   m_Name: Network
   m_TagString: Untagged
@@ -23466,11 +23467,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTxStarted: 0
+  Comment: sync ArmDT, send instr to physical arm
   IP: 127.0.0.1
   rxPort: 8000
   txPort: 8001
   ObjectManager: {fileID: 91002364}
   ArmDT: {fileID: 1023988670521322052}
+--- !u!114 &1278946181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278946177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cea533f39f7994f8bc3914f7dfb8cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTxStarted: 0
+  Comment: sync object space
+  IP: 127.0.0.1
+  rxPort: 8002
+  txPort: 8003
+  ObjectManager: {fileID: 91002364}
+  ArmDT: {fileID: 0}
 --- !u!1 &1279699982
 GameObject:
   m_ObjectHideFlags: 0
