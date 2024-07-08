@@ -25,6 +25,8 @@ public class UdpSocket : MonoBehaviour
 {
     [HideInInspector] public bool isTxStarted = false;
 
+    public string Comment = "";
+
     [SerializeField] string IP = "127.0.0.1"; // local host
     [SerializeField] int rxPort = 8000; // port to receive data from Python on
     [SerializeField] int txPort = 8001; // port to send data to Python on
