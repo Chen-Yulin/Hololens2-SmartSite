@@ -91,6 +91,7 @@ public class UdpSocket : MonoBehaviour
         {
             try
             {
+                
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
                 byte[] data = client.Receive(ref anyIP);
                 string text = Encoding.UTF8.GetString(data);
@@ -100,10 +101,10 @@ public class UdpSocket : MonoBehaviour
                 {
                     //print("Receive Object");
                     string cat = lines[1];
-                    float[] transform = new float[9];
+                    float[] transform = new float[10];
 
-                    // 将剩下的九行转换为整数存入数组
-                    for (int i = 0; i < 9; i++)
+                    // 将剩下的十行转换为整数存入数组
+                    for (int i = 0; i < 10; i++)
                     {
                         transform[i] = float.Parse(lines[i + 2]);
                     }
@@ -123,7 +124,7 @@ public class UdpSocket : MonoBehaviour
             }
             catch (Exception err)
             {
-                print(err.ToString());
+                print("Shit");
             }
         }
     }

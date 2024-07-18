@@ -74,7 +74,10 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
         // generate the action sequence
         List<KeyPoint> turningPoint = new List<KeyPoint>();
         turningPoint.Add(new KeyPoint(ArmEnd.position, false));
+        turningPoint.Add(new KeyPoint(task.move_start + Vector3.up * 0.1f, false));
         turningPoint.Add(new KeyPoint(task.move_start, true));
+        turningPoint.Add(new KeyPoint(task.move_start + Vector3.up * 0.1f));
+        turningPoint.Add(new KeyPoint(task.move_end + Vector3.up * 0.1f));
         turningPoint.Add(new KeyPoint(task.move_end, false));
         routeGenerator.SetRoute(turningPoint);
         bool solveable = routeGenerator.CalculateSequence();

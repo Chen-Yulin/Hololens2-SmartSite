@@ -136,7 +136,7 @@ public class RouteGenerator : MonoBehaviour
         }
     }
 
-        public void SetMat(Transform target, Material mat)
+    public void SetMat(Transform target, Material mat)
     {
         foreach (Transform child in target)
         {
