@@ -36,6 +36,14 @@ public class JakaController : MonoBehaviour
         network.SendData(info);
     }
 
+    public void SetGripper(bool open)
+    {
+        string info = "{Gripper}\n";
+        info += open ? "0\n" : "1\n";
+        Debug.Log(info);
+        network.SendData(info);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -38,7 +38,7 @@ public class ObjectFrame : MonoBehaviour
         if (taskManager)
         {
             ArmTask t = new ArmTask();
-            t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position);
+            t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position, source.Frame.transform.right, Frame.transform.right);
             taskManager.GetTask(t, gameObject);
         }
         else
