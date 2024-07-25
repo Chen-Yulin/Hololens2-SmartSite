@@ -14,13 +14,13 @@ public class IKController : MonoBehaviour {
 
     public bool IK = false;
 
-    public int maxStep = 200;
+    public int maxStep = 1000;
 
     public ArmDTController ArmDT; // for the initial state of arm (reset angle)
 
 
     private void Start() {
-        float[] angles = new float[Joints.Length];
+        float[] angles = new float[Joints.Length + 2];
         
         for (int i = 0; i < Joints.Length; i++) {
             if (Joints[i]._rotationAxis == 'x') {
@@ -63,10 +63,10 @@ public class IKController : MonoBehaviour {
         left = left.normalized * 0.1148f;
         Vector3 offset = forward - left;
         offset = offset.normalized * 0.1175f;
-        return pos + Vector3.up * 0.2446f - offset;
+        return pos + Vector3.up * (0.31f) - offset;
     }
 
-    public bool InverseKinematics(Vector3 pos)
+    public bool InverseKinematics(Vector3 pos, Vector3 right = default)
     {
         int step = 0;
         while(step < maxStep && DistanceFromTarget(pos, Angles) >= DistanceThreshold)
@@ -74,6 +74,19 @@ public class IKController : MonoBehaviour {
             step++;
             InverseKinematicsOneStep(pos, Angles);
         }
+
+        Angles[3] = Angles[2]+Angles[1];
+
+        Angles[4] = 0;
+
+        if (right != default)
+        {
+            float offset = -Vector2.SignedAngle(MathTool.Get2DCoordinate(Vector3.forward), MathTool.Get2DCoordinate(right));
+            offset -= 12;
+            offset -= Angles[0];
+            Angles[5] = MathTool.NormalizeAndAdjustAngle(offset);
+        }
+
         return step < 1000;
     }
 

@@ -19,16 +19,20 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using WW2NavalAssembly;
 
 public class UdpSocket : MonoBehaviour
 {
     [HideInInspector] public bool isTxStarted = false;
+
+    public string Comment = "";
 
     [SerializeField] string IP = "127.0.0.1"; // local host
     [SerializeField] int rxPort = 8000; // port to receive data from Python on
     [SerializeField] int txPort = 8001; // port to send data to Python on
 
     public ObjectSpaceManager ObjectManager;
+    public ArmDTController ArmDT;
 
     int i = 0; // DELETE THIS: Added to show sending data from Unity to Python via UDP
 
@@ -87,6 +91,7 @@ public class UdpSocket : MonoBehaviour
         {
             try
             {
+                
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
                 byte[] data = client.Receive(ref anyIP);
                 string text = Encoding.UTF8.GetString(data);
@@ -96,19 +101,30 @@ public class UdpSocket : MonoBehaviour
                 {
                     //print("Receive Object");
                     string cat = lines[1];
-                    float[] transform = new float[9];
+                    float[] transform = new float[10];
 
-                    // 将剩下的九行转换为整数存入数组
-                    for (int i = 0; i < 9; i++)
+                    // 将剩下的十行转换为整数存入数组
+                    for (int i = 0; i < 10; i++)
                     {
                         transform[i] = float.Parse(lines[i + 2]);
                     }
                     ObjectManager.AsyUpdateObject(cat, transform);
+                }else if (lines[0] == "{Current Joint}")
+                {
+                    float[] angle = new float[6];
+                    for (int i = 0; i < 6; i++)
+                    {
+                        angle[i] = float.Parse(lines[i + 1]);
+                    }
+                    if (ArmDT)
+                    {
+                        ArmDT.UpdateRealAngle(MathTool.Real_to_DT_angle(angle));
+                    }
                 }
             }
             catch (Exception err)
             {
-                print(err.ToString());
+                print("Shit");
             }
         }
     }

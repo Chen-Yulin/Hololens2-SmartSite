@@ -32,14 +32,13 @@ public class ObjectFrame : MonoBehaviour
 
     // for detect type;
     ObjectFrame dist;
-    [SerializeField] Material objectMat;
 
     public void SendTask()
     {
         if (taskManager)
         {
             ArmTask t = new ArmTask();
-            t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position);
+            t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position, source.Frame.transform.right, Frame.transform.right);
             taskManager.GetTask(t, gameObject);
         }
         else
@@ -57,11 +56,11 @@ public class ObjectFrame : MonoBehaviour
     }
 
 
-    public void UpdateFrame(string cat, Vector3 pos, Vector3 rot, Vector3 scale)
+    public void UpdateFrame(string cat, Vector3 pos, Quaternion rot, Vector3 scale)
     {
         Category = cat;
-        Frame.transform.position = pos;
-        Frame.transform.eulerAngles = rot;
+        Frame.transform.localPosition = Vector3.Lerp(Frame.transform.localPosition, pos, 0.3f);
+        Frame.transform.localRotation = Quaternion.Lerp(Frame.transform.localRotation, rot, 0.15f);
         Frame.transform.localScale = scale;
     }
 
@@ -69,13 +68,29 @@ public class ObjectFrame : MonoBehaviour
     {
         Debug.Log("Cancel Aim");
 
-
-
         if (type == Type.Aim)
         {
             source.transform.Find("Frame").gameObject.GetComponent<ObjectManipulator>().ManipulationType = Microsoft.MixedReality.Toolkit.Utilities.ManipulationHandFlags.OneHanded;
             source.dist = null;
             Destroy(gameObject);
+        }
+    }
+
+    public void SetMat(Transform target, Material mat)
+    {
+        foreach (Transform child in target)
+        {
+            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                Material[] newMaterials = new Material[meshRenderer.materials.Length];
+                for (int i = 0; i < newMaterials.Length; i++)
+                {
+                    newMaterials[i] = mat;
+                }
+                meshRenderer.materials = newMaterials;
+            }
+            SetMat(child, mat);
         }
     }
 
@@ -87,6 +102,9 @@ public class ObjectFrame : MonoBehaviour
         }
         GameObject clone = Instantiate(gameObject);
         clone.transform.parent = transform.parent;
+        clone.transform.localPosition = Vector3.zero;
+        clone.transform.localRotation = Quaternion.identity;
+        clone.transform.localScale = Vector3.one;
         clone.name = name;
         clone.transform.Find("Frame").gameObject.GetComponent<ObjectManipulator>().ManipulationType = 0x0;
         if (manager.objects.ContainsKey(clone.name))
@@ -96,7 +114,7 @@ public class ObjectFrame : MonoBehaviour
         manager.objects[clone.name].dist = this;
         type = Type.Aim;
         source = manager.objects[name];
-        transform.Find("Frame").gameObject.GetComponent<MeshRenderer>().material = aimMat;
+        SetMat(transform.Find("Frame").Find("box"),aimMat);
     }
 
     void Start()
