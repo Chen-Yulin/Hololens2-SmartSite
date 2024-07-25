@@ -81,10 +81,10 @@ public class IKController : MonoBehaviour {
 
         if (right != default)
         {
-            float offset = Vector2.SignedAngle(MathTool.Get2DCoordinate(Vector3.forward), MathTool.Get2DCoordinate(right));
+            float offset = -Vector2.SignedAngle(MathTool.Get2DCoordinate(Vector3.forward), MathTool.Get2DCoordinate(right));
             offset -= 12;
             offset -= Angles[0];
-            Angles[5] = offset + 90;
+            Angles[5] = MathTool.NormalizeAndAdjustAngle(offset);
         }
 
         return step < 1000;

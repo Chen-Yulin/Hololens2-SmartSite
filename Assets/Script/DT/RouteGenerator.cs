@@ -41,6 +41,7 @@ public class ArmAction
 [System.Serializable]
 public class Route
 {
+    float stepDist = 0.02f;
     public List<KeyPoint> keypoints = new List<KeyPoint>();
     public Route(List<KeyPoint> turningPoints)
     {
@@ -55,12 +56,16 @@ public class Route
             KeyPoint end = turningPoints[i];
             Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
             float dist = (start.pos - end.pos).magnitude;
-            int sigment = (int)(dist * 20f);
+            int sigment = (int)(dist/stepDist);
             for (int j = 0; j <= sigment; j++)
             {
                 keypoints.Add(new KeyPoint(start.pos + ((float)j) / sigment * (end.pos - start.pos), start.right, start.grab));
             }
         }
+    }
+    public Route()
+    {
+        keypoints = new List<KeyPoint>();
     }
 }
 
@@ -172,6 +177,16 @@ public class RouteGenerator : MonoBehaviour
     public void SetRoute(List<KeyPoint> turningPoints)
     {
         route = new Route(turningPoints);
+    }
+
+    public void ResetRoute()
+    {
+        route = new Route();
+        try
+        {
+            Destroy(transform.Find("GhostSpace").gameObject);
+        }
+        catch { }
     }
 
     public bool CalculateSequence()

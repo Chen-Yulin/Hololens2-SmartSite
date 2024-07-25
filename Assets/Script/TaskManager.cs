@@ -78,10 +78,10 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
         Debug.Log("Start move object coroutine.");
         // generate the action sequence
         List<KeyPoint> turningPoint = new List<KeyPoint>();
-        turningPoint.Add(new KeyPoint(ArmEnd.position, default, false));
+        turningPoint.Add(new KeyPoint(ArmEnd.position, task.move_start_right, false));
         turningPoint.Add(new KeyPoint(task.move_start + Vector3.up * 0.07f, task.move_start_right,false));
         turningPoint.Add(new KeyPoint(task.move_start, task.move_start_right, true));
-        turningPoint.Add(new KeyPoint(task.move_start + Vector3.up * 0.07f, default,true));
+        turningPoint.Add(new KeyPoint(task.move_start + Vector3.up * 0.07f, task.move_end_right, true));
         turningPoint.Add(new KeyPoint(task.move_end + Vector3.up * 0.07f, task.move_end_right, true));
         turningPoint.Add(new KeyPoint(task.move_end, task.move_end_right, false));
         turningPoint.Add(new KeyPoint(task.move_end + Vector3.up * 0.07f, default, false));
@@ -103,7 +103,7 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
             {
                 
                 jaka.SetJointRot(action.angles);
-                yield return new WaitForSeconds(0.4f);
+                yield return new WaitForSeconds(0.1f);
                 if (pre_grab != action.grab)
                 {
                     while((action.position - ArmEnd.position).magnitude > 0.04f)
@@ -123,6 +123,7 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
             }
             catch { }
         }
+        routeGenerator.ResetRoute();
         taskRoutine = null;
         task = new ArmTask();
         Debug.Log("Task Finished");
