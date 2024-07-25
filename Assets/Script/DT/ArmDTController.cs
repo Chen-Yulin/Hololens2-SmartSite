@@ -8,6 +8,8 @@ public class ArmDTController : MonoBehaviour
     public Vector3[] RotateDir = new Vector3[6];
     public float[] Rotate = new float[6];
 
+    public bool VisEnable = false;
+
 
     public Transform[] joint = new Transform[6];
 
@@ -16,6 +18,12 @@ public class ArmDTController : MonoBehaviour
     public void UpdateRealAngle(float[] angles)
     {
         Rotate = angles;
+    }
+
+    public void ToggleVis()
+    {
+        VisEnable = !VisEnable;
+        transform.GetChild(0).gameObject.SetActive(VisEnable);
     }
 
     Transform RecursiveFindChild(Transform parent, string childName)

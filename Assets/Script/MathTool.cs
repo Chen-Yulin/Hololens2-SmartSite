@@ -118,5 +118,22 @@ namespace WW2NavalAssembly
             return res;
         }
 
+        public static float NormalizeAndAdjustAngle(float angle)
+        {
+            // Step 1: Normalize the angle to be within 0 to 360 degrees
+            float normalizedAngle = angle % 360;
+            if (normalizedAngle < 0)
+            {
+                normalizedAngle += 360;
+            }
+
+            // Step 2: If angle is greater than 180, adjust by subtracting 180
+            if (normalizedAngle > 180)
+            {
+                normalizedAngle -= 180;
+            }
+
+            return normalizedAngle;
+        }
     }
 }
