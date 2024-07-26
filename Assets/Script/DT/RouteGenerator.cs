@@ -87,7 +87,18 @@ public class RouteGenerator : MonoBehaviour
     [SerializeField]
     uint currHighlight = 0;
 
-
+    public bool RestRouteValid(int index)
+    {
+        int cnt = GhostSpace.childCount;
+        for (int i = index; i< cnt; i++)
+        {
+            if (!GhostSpace.GetChild(i).gameObject.GetComponent<GhostCollisionDetection>().Valid)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     
     public uint CurrHighlight
     {

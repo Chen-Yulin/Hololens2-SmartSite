@@ -36,6 +36,8 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
     public IKController IKSolver;
     public RouteGenerator routeGenerator;
     public JakaController jaka;
+
+    public ArmDTController ArmDT;
     
 
     Coroutine taskRoutine;
@@ -73,6 +75,10 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
         }
     }
 
+    public bool RestRouteValid(int i)
+    {
+        return routeGenerator.RestRouteValid(i);
+    }
     IEnumerator ExecuteMoveObject()
     {
         Debug.Log("Start move object coroutine.");
@@ -99,8 +105,15 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
 
             // execute action
             bool pre_grab = false;
+            int index = 0;
             foreach (ArmAction action in routeGenerator.actionSequence)
             {
+                while (!RestRouteValid(index))
+                {
+                    Debug.Log("Blocking");
+                    jaka.SetJointRot(ArmDT.Rotate);
+                    yield return new WaitForSeconds(0.1f);
+                }
                 
                 jaka.SetJointRot(action.angles);
                 yield return new WaitForSeconds(0.1f);
@@ -115,6 +128,7 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
                     jaka.SetGripper(!action.grab);
                     yield return new WaitForSeconds(0.5f);
                 }
+                index++;
             }
             // cancel aim box when finish
             try
