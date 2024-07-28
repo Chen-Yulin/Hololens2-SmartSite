@@ -43,25 +43,33 @@ public class Route
 {
     float stepDist = 0.02f;
     public List<KeyPoint> keypoints = new List<KeyPoint>();
-    public Route(List<KeyPoint> turningPoints)
+    public Route(List<KeyPoint> turningPoints, bool discrete = false)
     {
-        if (turningPoints.Count < 2)
+        if (!discrete)
         {
-            return;
-        }
-        for (int i = 1; i < turningPoints.Count; i++)
-        {
-            
-            KeyPoint start = turningPoints[i-1];
-            KeyPoint end = turningPoints[i];
-            Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
-            float dist = (start.pos - end.pos).magnitude;
-            int sigment = (int)(dist/stepDist);
-            for (int j = 0; j <= sigment; j++)
+            if (turningPoints.Count < 2)
             {
-                keypoints.Add(new KeyPoint(start.pos + ((float)j) / sigment * (end.pos - start.pos), start.right, start.grab));
+                return;
+            }
+            for (int i = 1; i < turningPoints.Count; i++)
+            {
+
+                KeyPoint start = turningPoints[i - 1];
+                KeyPoint end = turningPoints[i];
+                Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
+                float dist = (start.pos - end.pos).magnitude;
+                int sigment = Mathf.Max((int)(dist / stepDist), 1);
+                for (int j = 0; j <= sigment; j++)
+                {
+                    keypoints.Add(new KeyPoint(start.pos + ((float)j) / sigment * (end.pos - start.pos), start.right, start.grab));
+                }
             }
         }
+        else
+        {
+            foreach (KeyPoint keypoint in turningPoints) { keypoints.Add(keypoint); }
+        }
+        
     }
     public Route()
     {
@@ -185,9 +193,9 @@ public class RouteGenerator : MonoBehaviour
         StopCoroutine(IncrementVis());
     }
 
-    public void SetRoute(List<KeyPoint> turningPoints)
+    public void SetRoute(List<KeyPoint> turningPoints, bool discrete = false)
     {
-        route = new Route(turningPoints);
+        route = new Route(turningPoints, discrete);
     }
 
     public void ResetRoute()

@@ -21,7 +21,8 @@ public class ObjectFrame : MonoBehaviour
 
     public ObjectSpaceManager manager;
 
-    public GameObject UI;
+    public GameObject UI_Aim;
+    public GameObject UI_Detect;
     public GameObject Frame;
 
     // for aim type
@@ -32,13 +33,50 @@ public class ObjectFrame : MonoBehaviour
 
     // for detect type;
     ObjectFrame dist;
+    public bool InTask = false;
 
-    public void SendTask()
+    public Transform RightHand;
+    public Transform LeftHand;
+
+    public void SwitchTaskMode(bool intask)
+    {
+        if (type == Type.Aim)
+        {
+            InTask = intask;
+            try
+            {
+                source.InTask = intask;
+            }
+            catch { }
+        }
+        else
+        {
+            InTask = intask;
+            try
+            {
+                dist.InTask = intask;
+            }
+            catch { }
+        }
+    }
+
+    public void SendTask(int task_type) // type 0 for move, 1 for left grab, 2 for right grab
     {
         if (taskManager)
         {
             ArmTask t = new ArmTask();
-            t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position, source.Frame.transform.right, Frame.transform.right);
+            if (task_type == 0)
+            {
+                t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position, source.Frame.transform.right, Frame.transform.right);
+            }else if ((task_type == 1 || task_type == 2) && type == Type.Detect)
+            {
+                t.InitAsGrabObject(
+                    Frame.transform.position, 
+                    Frame.transform.right, 
+                    task_type == 2 ? RightHand : LeftHand
+                    );
+            }
+
             taskManager.GetTask(t, gameObject);
         }
         else
@@ -58,6 +96,10 @@ public class ObjectFrame : MonoBehaviour
 
     public void UpdateFrame(string cat, Vector3 pos, Quaternion rot, Vector3 scale)
     {
+        if (InTask)
+        {
+            return;
+        }
         Category = cat;
         Frame.transform.localPosition = Vector3.Lerp(Frame.transform.localPosition, pos, 0.3f);
         Frame.transform.localRotation = Quaternion.Lerp(Frame.transform.localRotation, rot, 0.15f);
@@ -66,6 +108,10 @@ public class ObjectFrame : MonoBehaviour
 
     public void CancelAim()
     {
+        if (InTask)
+        {
+            return;
+        }
         Debug.Log("Cancel Aim");
 
         if (type == Type.Aim)
@@ -96,6 +142,10 @@ public class ObjectFrame : MonoBehaviour
 
     public void SwitchToAim()
     {
+        if (InTask)
+        {
+            return;
+        }
         if (type == Type.Aim)
         {
             return;
@@ -121,7 +171,8 @@ public class ObjectFrame : MonoBehaviour
     {
         Frame = transform.Find("Frame").gameObject;
         arrows = Frame.transform.Find("Arrow");
-        UI = transform.Find("UI").gameObject;
+        UI_Aim = transform.Find("UI_Aim").gameObject;
+        UI_Detect = transform.Find("UI_Detect").gameObject;
     }
 
     // Update is called once per frame
@@ -136,11 +187,13 @@ public class ObjectFrame : MonoBehaviour
             Line.positionCount = 2;
             Line.SetPosition(1, Frame.transform.position);
             Line.SetPosition(0, source.Frame.transform.position);
-            UI.SetActive(true);
+            UI_Aim.SetActive(true);
+            UI_Detect.SetActive(false);
         }
         else
         {
-            UI.SetActive(false);
+            UI_Aim.SetActive(false);
+            UI_Detect.SetActive(true);
             Line.enabled = false;
         }
 
