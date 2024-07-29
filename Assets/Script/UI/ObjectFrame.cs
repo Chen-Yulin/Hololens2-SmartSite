@@ -190,7 +190,8 @@ public class ObjectFrame : MonoBehaviour
             UI_Aim.SetActive(true);
             UI_Detect.SetActive(false);
         }
-        else
+
+        else if(type == Type.Detect && !dist)
         {
             UI_Aim.SetActive(false);
             UI_Detect.SetActive(true);

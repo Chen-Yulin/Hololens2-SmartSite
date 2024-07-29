@@ -56,7 +56,7 @@ public class Route
 
                 KeyPoint start = turningPoints[i - 1];
                 KeyPoint end = turningPoints[i];
-                Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
+                //Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
                 float dist = (start.pos - end.pos).magnitude;
                 int sigment = Mathf.Max((int)(dist / stepDist), 1);
                 for (int j = 0; j <= sigment; j++)
@@ -214,7 +214,7 @@ public class RouteGenerator : MonoBehaviour
         IK.ResetAngle();
         foreach (var kpt in route.keypoints)
         {
-            Debug.Log("Calculate action for " + kpt.pos.ToString());
+            //Debug.Log("Calculate action for " + kpt.pos.ToString());
             bool success = IK.InverseKinematics(IK.GetPositionForJ4(kpt.pos), kpt.right);
             if (!success)
             {

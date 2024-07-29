@@ -40,7 +40,7 @@ public class JakaController : MonoBehaviour
     {
         string info = "{Gripper}\n";
         info += open ? "0\n" : "1\n";
-        Debug.Log(info);
+        //Debug.Log(info);
         network.SendData(info);
     }
 
