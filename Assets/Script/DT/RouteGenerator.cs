@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
+using System.Reflection;
 using UnityEngine;
 using WW2NavalAssembly;
 
@@ -43,25 +44,33 @@ public class Route
 {
     float stepDist = 0.02f;
     public List<KeyPoint> keypoints = new List<KeyPoint>();
-    public Route(List<KeyPoint> turningPoints)
+    public Route(List<KeyPoint> turningPoints, bool discrete = false)
     {
-        if (turningPoints.Count < 2)
+        if (!discrete)
         {
-            return;
-        }
-        for (int i = 1; i < turningPoints.Count; i++)
-        {
-            
-            KeyPoint start = turningPoints[i-1];
-            KeyPoint end = turningPoints[i];
-            Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
-            float dist = (start.pos - end.pos).magnitude;
-            int sigment = (int)(dist/stepDist);
-            for (int j = 0; j <= sigment; j++)
+            if (turningPoints.Count < 2)
             {
-                keypoints.Add(new KeyPoint(start.pos + ((float)j) / sigment * (end.pos - start.pos), start.right, start.grab));
+                return;
+            }
+            for (int i = 1; i < turningPoints.Count; i++)
+            {
+
+                KeyPoint start = turningPoints[i - 1];
+                KeyPoint end = turningPoints[i];
+                //Debug.Log(start.pos.ToString() + ' ' + end.pos.ToString());
+                float dist = (start.pos - end.pos).magnitude;
+                int sigment = Mathf.Max((int)(dist / stepDist), 1);
+                for (int j = 0; j <= sigment; j++)
+                {
+                    keypoints.Add(new KeyPoint(start.pos + ((float)j) / sigment * (end.pos - start.pos), start.right, start.grab));
+                }
             }
         }
+        else
+        {
+            foreach (KeyPoint keypoint in turningPoints) { keypoints.Add(keypoint); }
+        }
+        
     }
     public Route()
     {
@@ -87,7 +96,32 @@ public class RouteGenerator : MonoBehaviour
     [SerializeField]
     uint currHighlight = 0;
 
+    public void ResetRouteValid()
+    {
+        int cnt = GhostSpace.childCount;
+        for (int i = 0; i < cnt; i++)
+        {
+            GhostCollisionDetection gcd = GhostSpace.GetChild(i).gameObject.GetComponent<GhostCollisionDetection>();
+            gcd.Valid = true;
+            for (int j = 0; j < gcd.colliderCnt.Length; j++)
+            {
+                gcd.colliderCnt[j] = 0;
+            }
+        }
+    }
 
+    public bool RestRouteValid(int index)
+    {
+        int cnt = GhostSpace.childCount;
+        for (int i = index; i< cnt; i++)
+        {
+            if (!GhostSpace.GetChild(i).gameObject.GetComponent<GhostCollisionDetection>().Valid)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     
     public uint CurrHighlight
     {
@@ -106,13 +140,22 @@ public class RouteGenerator : MonoBehaviour
                 }
                 if (GhostSpace.childCount > 0)
                 {
+                    GhostCollisionDetection obj;
                     if (currHighlight == 0)
                     {
-                        SetMat(GhostSpace.GetChild(GhostSpace.childCount - 1), transparentMat);
+                        obj = GhostSpace.GetChild(GhostSpace.childCount - 1).gameObject.GetComponent<GhostCollisionDetection>();
                     }
                     else
                     {
-                        SetMat(GhostSpace.GetChild((int)(currHighlight - 1)), transparentMat);
+                        obj = GhostSpace.GetChild((int)(currHighlight - 1)).gameObject.GetComponent<GhostCollisionDetection>();
+                    }
+                    if (!obj.Valid)
+                    {
+                        obj.SetMat(obj.transform, obj.AlertMat);
+                    }
+                    else
+                    {
+                        obj.SetMat(obj.transform, obj.NormalMat);
                     }
                     SetMat(GhostSpace.GetChild((int)currHighlight), hightlightMat);
                 }
@@ -174,9 +217,9 @@ public class RouteGenerator : MonoBehaviour
         StopCoroutine(IncrementVis());
     }
 
-    public void SetRoute(List<KeyPoint> turningPoints)
+    public void SetRoute(List<KeyPoint> turningPoints, bool discrete = false)
     {
-        route = new Route(turningPoints);
+        route = new Route(turningPoints, discrete);
     }
 
     public void ResetRoute()
@@ -195,7 +238,7 @@ public class RouteGenerator : MonoBehaviour
         IK.ResetAngle();
         foreach (var kpt in route.keypoints)
         {
-            Debug.Log("Calculate action for " + kpt.pos.ToString());
+            //Debug.Log("Calculate action for " + kpt.pos.ToString());
             bool success = IK.InverseKinematics(IK.GetPositionForJ4(kpt.pos), kpt.right);
             if (!success)
             {

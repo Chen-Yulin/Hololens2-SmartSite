@@ -19,8 +19,8 @@ MonoBehaviour:
   observerVolumeType: 1
   updateInterval: 0.5
   meshPhysicsLayer: 31
-  levelOfDetail: 2
-  trianglesPerCubicMeter: 5
+  levelOfDetail: 255
+  trianglesPerCubicMeter: 50
   recalculateNormals: 1
   displayOption: 1
   visibleMaterial: {fileID: 2100000, guid: 2e361576d8b93b847a818de62b722dd4, type: 2}
