@@ -58,6 +58,8 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
 
     public bool jakaRunning = false;
 
+    public bool Cancel = false;
+
 
     public void JakaFinished()
     {
@@ -129,6 +131,10 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
             int index = 0;
             foreach (ArmAction action in routeGenerator.actionSequence)
             {
+                if (Cancel)
+                {
+                    break;
+                }
                 while (!RestRouteValid(index))
                 {
                     yield return new WaitForSeconds(0.2f);
@@ -151,16 +157,17 @@ public class TaskManager : MonoBehaviour // hold the coroutine of tasks
             // cancel aim box when finish
             try
             {
+                taskSouce.GetComponent<ObjectFrame>().SwitchTaskMode(false);
                 taskSouce.GetComponent<ObjectFrame>().CancelAim();
             }
             catch { }
         }
         routeGenerator.ResetRoute();
         taskRoutine = null;
-        taskSouce.GetComponent<ObjectFrame>().SwitchTaskMode(false);
         taskSouce = null;
         task = new ArmTask();
         Debug.Log("Task Finished");
+        Cancel = false;
         yield break;
     }
 

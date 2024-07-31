@@ -38,6 +38,8 @@ public class ObjectFrame : MonoBehaviour
     public Transform RightHand;
     public Transform LeftHand;
 
+    public ToolTip CatName;
+
     public void SwitchTaskMode(bool intask)
     {
         if (type == Type.Aim)
@@ -68,7 +70,8 @@ public class ObjectFrame : MonoBehaviour
             if (task_type == 0)
             {
                 t.InitAsMoveObject(source.Frame.transform.position, Frame.transform.position, source.Frame.transform.right, Frame.transform.right);
-            }else if ((task_type == 1 || task_type == 2) && type == Type.Detect)
+            }
+            else if ((task_type == 1 || task_type == 2) && type == Type.Detect)
             {
                 t.InitAsGrabObject(
                     Frame.transform.position, 
@@ -110,6 +113,11 @@ public class ObjectFrame : MonoBehaviour
     {
         if (InTask)
         {
+            Debug.Log("Cancel Task");
+            if (taskManager)
+            {
+                taskManager.Cancel = true;
+            }
             return;
         }
         Debug.Log("Cancel Aim");
@@ -179,8 +187,6 @@ public class ObjectFrame : MonoBehaviour
     void Update()
     {
         arrows.localScale = new Vector3(1f/Frame.transform.lossyScale.x, 1f/Frame.transform.localScale.y, 1f/Frame.transform.lossyScale.z) * 0.5f * Frame.transform.localScale.magnitude;
-
-
         if (type == Type.Aim)
         {
             Line.enabled = true;
@@ -190,12 +196,13 @@ public class ObjectFrame : MonoBehaviour
             UI_Aim.SetActive(true);
             UI_Detect.SetActive(false);
         }
-
-        else if(type == Type.Detect && !dist)
+        else
         {
             UI_Aim.SetActive(false);
-            UI_Detect.SetActive(true);
+            UI_Detect.SetActive(!dist);
             Line.enabled = false;
+            CatName.ToolTipText = Category;
+            CatName.gameObject.SetActive(Category.Length > 0);
         }
 
     }

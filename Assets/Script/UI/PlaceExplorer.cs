@@ -1,4 +1,5 @@
 using Microsoft.MixedReality.Toolkit.UI;
+using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class PlaceExplorer : MonoBehaviour
     public GameObject SelectedButton = null;
 
     public Transform field;
+
+    public RouteGenerator routeGenerator;
 
     public void ButtonPressed(GameObject button)
     {
@@ -40,9 +43,16 @@ public class PlaceExplorer : MonoBehaviour
             GameObject obj = Instantiate(SelectedButton.transform.Find("ButtonContent").GetChild(0).gameObject);
             obj.SetActive(true);
             obj.transform.parent = field;
-            obj.AddComponent<ObjectManipulator>();
+            Obstacle obstacle = obj.AddComponent<Obstacle>();
+            obstacle.routeGenerator = routeGenerator;
+            ObjectManipulator OM = obj.AddComponent<ObjectManipulator>();
+            OM.OnHoverEntered.AddListener(obj.GetComponent<Obstacle>().hoverEnter);
+            OM.OnHoverExited.AddListener(obj.GetComponent<Obstacle>().hoverExit);
             obj.transform.localScale *= 20f;
             obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.8f;
+            BoundsControl BC = obj.AddComponent<BoundsControl>();
+            BC.ScaleHandlesConfig.ScaleBehavior = Microsoft.MixedReality.Toolkit.UI.BoundsControlTypes.HandleScaleMode.NonUniform;
+            obj.layer = obj.transform.parent.gameObject.layer;
         }
     }
 

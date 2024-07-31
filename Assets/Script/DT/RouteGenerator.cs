@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
+using System.Reflection;
 using UnityEngine;
 using WW2NavalAssembly;
 
@@ -95,6 +96,20 @@ public class RouteGenerator : MonoBehaviour
     [SerializeField]
     uint currHighlight = 0;
 
+    public void ResetRouteValid()
+    {
+        int cnt = GhostSpace.childCount;
+        for (int i = 0; i < cnt; i++)
+        {
+            GhostCollisionDetection gcd = GhostSpace.GetChild(i).gameObject.GetComponent<GhostCollisionDetection>();
+            gcd.Valid = true;
+            for (int j = 0; j < gcd.colliderCnt.Length; j++)
+            {
+                gcd.colliderCnt[j] = 0;
+            }
+        }
+    }
+
     public bool RestRouteValid(int index)
     {
         int cnt = GhostSpace.childCount;
@@ -125,13 +140,22 @@ public class RouteGenerator : MonoBehaviour
                 }
                 if (GhostSpace.childCount > 0)
                 {
+                    GhostCollisionDetection obj;
                     if (currHighlight == 0)
                     {
-                        SetMat(GhostSpace.GetChild(GhostSpace.childCount - 1), transparentMat);
+                        obj = GhostSpace.GetChild(GhostSpace.childCount - 1).gameObject.GetComponent<GhostCollisionDetection>();
                     }
                     else
                     {
-                        SetMat(GhostSpace.GetChild((int)(currHighlight - 1)), transparentMat);
+                        obj = GhostSpace.GetChild((int)(currHighlight - 1)).gameObject.GetComponent<GhostCollisionDetection>();
+                    }
+                    if (!obj.Valid)
+                    {
+                        obj.SetMat(obj.transform, obj.AlertMat);
+                    }
+                    else
+                    {
+                        obj.SetMat(obj.transform, obj.NormalMat);
                     }
                     SetMat(GhostSpace.GetChild((int)currHighlight), hightlightMat);
                 }
