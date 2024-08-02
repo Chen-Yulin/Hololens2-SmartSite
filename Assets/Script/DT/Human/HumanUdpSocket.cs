@@ -103,7 +103,6 @@ public class HumanUdpSocket : MonoBehaviour
             }
             catch (Exception err)
             {
-                print(err.ToString());
             }
         }
     }
