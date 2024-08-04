@@ -18268,6 +18268,7 @@ MonoBehaviour:
   IK: 0
   maxStep: 1000
   ArmDT: {fileID: 1023988670521322052}
+  errors: []
 --- !u!1 &677355897
 GameObject:
   m_ObjectHideFlags: 0

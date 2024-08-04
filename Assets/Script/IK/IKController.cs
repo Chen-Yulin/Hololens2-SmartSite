@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using WW2NavalAssembly;
 
@@ -17,6 +18,8 @@ public class IKController : MonoBehaviour {
     public int maxStep = 1000;
 
     public ArmDTController ArmDT; // for the initial state of arm (reset angle)
+
+    public List<Vector3> errors = new List<Vector3>();
 
 
     private void Start() {
@@ -41,6 +44,22 @@ public class IKController : MonoBehaviour {
         {
             IK = false;
             InverseKinematics(GetPositionForJ4(_targetTransform.position));
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SaveVector3List(errors, "errors.txt");
+    }
+
+    void SaveVector3List(List<Vector3> vectors, string filePath)
+    {
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            foreach (Vector3 vec in vectors)
+            {
+                writer.WriteLine($"{vec.x},{vec.y},{vec.z}");
+            }
         }
     }
 
@@ -74,6 +93,7 @@ public class IKController : MonoBehaviour {
             step++;
             InverseKinematicsOneStep(pos, Angles);
         }
+        errors.Add(ForwardKinematics(Angles) - pos);
 
         Angles[3] = Angles[2]+Angles[1];
 
