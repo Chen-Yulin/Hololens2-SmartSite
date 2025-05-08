@@ -50,6 +50,8 @@ public class Detector : MonoBehaviour
     Texture2D DisplayTexture;
     List<ResultBox> boxes = new List<ResultBox>();
 
+    public bool defaultDetect = false;
+
     public void ToggleDetection()
     {
         detectionOn = !detectionOn;
@@ -72,6 +74,11 @@ public class Detector : MonoBehaviour
 
         textureProvider = GetTextureProvider(nn.model);
         textureProvider.Start();
+
+        if (defaultDetect)
+        {
+            ToggleDetection();
+        }
     }
 
     private void Update()

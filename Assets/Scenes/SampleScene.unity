@@ -1990,7 +1990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &92360374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6308,7 +6308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &245231320
 Transform:
   m_ObjectHideFlags: 0
@@ -20815,7 +20815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &782628376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20828,13 +20828,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad934041a3d88c45b687ed811756753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModelFile: {fileID: 5022602860645237092, guid: 4d9cc643a9bc424499c3f08397903820, type: 3}
+  ModelFile: {fileID: 5022602860645237092, guid: 0a133a957381bf448918730d57608d88, type: 3}
   material_t: {fileID: 2100000, guid: d4c3396def303a84d81ff6a10a617c11, type: 2}
   MinBoxConfidence: 0.25
   textureProviderType: 0
   textureProvider:
     rid: 7844097659052228608
-  holo: 1
+  holo: 0
+  defaultDetect: 1
   references:
     version: 2
     RefIds:
@@ -21227,7 +21228,7 @@ MonoBehaviour:
   isGlobal: 0
   Dimensions: 2
   dimensionIndex: 0
-  startDimensionIndex: 0
+  startDimensionIndex: 1
   CanSelect: 1
   CanDeselect: 1
   voiceCommand: Select
@@ -23881,7 +23882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &936113383
 Transform:
   m_ObjectHideFlags: 0
@@ -41263,6 +41264,50 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2005936145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005936147}
+  - component: {fileID: 2005936146}
+  m_Layer: 0
+  m_Name: framerate recorder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2005936146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005936145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87caf64f9de02e4d810811c509df17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2005936147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005936145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.46388957, y: 1.605818, z: 0.956514}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2013387741
 GameObject:
   m_ObjectHideFlags: 0
@@ -48717,3 +48762,4 @@ SceneRoots:
   - {fileID: 186322784}
   - {fileID: 2343024386636405854}
   - {fileID: 5912492262316833258}
+  - {fileID: 2005936147}

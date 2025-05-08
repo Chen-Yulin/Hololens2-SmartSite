@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Unity.Barracuda;
 using UnityEngine;
@@ -48,6 +49,10 @@ namespace NN
 
         bool on;
 
+        // time recording
+        private float lastTime = 0f;
+        private string filePath;
+
         public void SetSource(Texture2D img)
         {
             sourceImg = img;
@@ -79,6 +84,19 @@ namespace NN
         {
             this.nn = nn;
             outputReader = new();
+            
+        }
+        public void Start()
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            filePath = Path.Combine(desktopPath, "YoloFPS.txt");
+            // 如果文件不存在就创建，并添加表头
+            if (!File.Exists(filePath))
+            {
+                File.WriteAllText(filePath, "CurrentTime, FPS\n", Encoding.UTF8);
+            }
+
+            lastTime = Time.realtimeSinceStartup;
         }
         public virtual void InitYOLOv8(NNHandler nn)
         {
@@ -108,6 +126,15 @@ namespace NN
                     jobcomplete = false;
                     ResAvailable = true;
                     input.tensorOnDevice.Dispose();
+
+                    float currentTime = Time.realtimeSinceStartup;
+                    float interval = currentTime - lastTime;
+                    float fps = 1f / interval;
+                    lastTime = currentTime;
+
+                    string log = $"{currentTime:F4},{fps:F6}\n";
+                    File.AppendAllText(filePath, log, Encoding.UTF8);
+
                     return PeekOutputs().ToArray();
                 }
                 else // ready to start
@@ -134,15 +161,20 @@ namespace NN
             workerbusy = true;
             int cnt = 0;
 
+            int layercnt = 0;
             while (it.MoveNext())
             {
+                layercnt++;
                 ++cnt;
-                if (cnt % 5 == 0)
+                if (cnt % 32 == 0)
                 {
                     nn.worker.FlushSchedule(false);
                     yield return null;
                 }
             }
+            Debug.Log(layercnt);
+
+            
 
             nn.worker.FlushSchedule(true);
             workerbusy = false;
